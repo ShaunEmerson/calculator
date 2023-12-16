@@ -14,9 +14,9 @@ const divide = function (num1, num2) {
   return num1 / num2;
 }
 
-let firstNumber = 0;
+let firstNumber = "";
 
-let secondNumber = 0;
+let secondNumber = "";
 
 let operator = "";
 
@@ -35,16 +35,31 @@ const operate = function (number1, op, number2) {
 }
 
 const btns = document.querySelectorAll('button');
+const display = document.getElementById('display');
+
 btns.forEach((button) => {
   button.addEventListener('click', () => {
-    let evaluate = Number(button.value);
-    if(typeof(Number(button.value)) === "number") {
-      firstNumber += button.value;
+    display.style.background = "green";
+    if(operator !== "") {
+      secondNumber += button.value;
+      display.textContent += button.value;
     }
-    if(button.value == ("+"||"-"||"x"||"÷")) {
-      operator = button.value;
-    };
-
-    secondNumber += button.value;
+    if(button.id !== "add" && button.id !== "subtract" && button.id !== "divide" && button.id !== "multiply" && operator == "") {
+      firstNumber += button.value;
+      display.textContent += button.value;
+    }
+    if(button.value == "+"||button.value == "-"||button.value == "x"||button.value == "÷") {
+      if (operator == "") {
+        operator = button.value;
+        display.textContent += button.value;
+      }
+    }
+    if(button.id == "clear") {
+      display.textContent = "";
+      display.style.background = "rgb(137, 134, 126)";
+      firstNumber = "";
+      secondNumber = "";
+      operator = "";
+    }
   })
 })
